@@ -1,6 +1,8 @@
 const TTT = new TicTacToe()
+
 function setup() {
     createCanvas(width,width);
+    TTT.AiMove()
   }
   
   function draw() {
@@ -10,10 +12,9 @@ function setup() {
       line((width/3)*2,0,(width/3*2),width);
       line(0,(width/3)*2,width,(width/3*2));
       if(mouseIsPressed){
-        TTT.addMove({x:mouseX,y:mouseY})
+        TTT.playerMove({x:mouseX,y:mouseY})
+        TTT.checkWinner()
       }
-    TTT.draw()
-    TTT.checkWinner()
-
+      TTT.draw()
   }
 
