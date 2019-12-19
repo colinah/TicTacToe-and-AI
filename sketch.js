@@ -2,7 +2,7 @@ const TTT = new TicTacToe()
 
 function setup() {
     createCanvas(width,width);
-    TTT.AiMove()
+    TTT.firstMove()
   }
   
   function draw() {

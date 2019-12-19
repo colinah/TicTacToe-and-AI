@@ -40,22 +40,39 @@ function TicTacToe() {
     }  //playerMove
 
     this.AiMove = () => {
-        console.log(this.board);
         let move = this.bestMoveAi(this.board);
         this.board[move.x][move.y] = 1;
         this.playersTurn = true;
     } //AiMove
 
     this.bestMoveAi = (board) => {
-        let bestScore = -3
-        let currentScore = -3
+        let bestScore = -3;
+        let playerWin = false;
+        let currentScore = -3;
         let location = {x: null, y:null}
+        let Win 
+        //Check Columns and rows
         for(let i = 0; i < 3;i++){
             for(let j = 0; j < 3; j++){
-                if(this.board[i][j] === 0){
+                if(this.board[i][j] === 0 && !playerWin){
                     this.board[i][j] = 1;
                     currentScore = Math.max(...this.checkScore(board));
                     bestScore < currentScore ? (bestScore = currentScore, location.x = i, location.y = j): null
+                    this.board[i][j] = 0
+                }
+            }
+        }
+        if(bestScore === 3){
+            return location
+        }
+        //Check for losing scenario
+        currentScore = 3;
+        for(let i = 0; i < 3;i++){
+            for(let j = 0; j < 3; j++){
+                if(this.board[i][j] === 0 && !playerWin){
+                    this.board[i][j] = -1;
+                    currentScore = Math.min(...this.checkScore(board));
+                    currentScore === -3 ? (worstScore = currentScore, location.x = i, location.y = j): null
                     this.board[i][j] = 0
                 }
             }
@@ -66,6 +83,10 @@ function TicTacToe() {
 
     
     } //bestMove
+
+    this.firstMove = () => {
+        this.board[Math.floor(Math.random()*3)][Math.floor(Math.random()*3)] = 1;
+    }
     
 
     this.checkWinner = () => {
@@ -82,7 +103,6 @@ function TicTacToe() {
     } //checkWinner
 
     this.checkScore = (board) => {
-        console.log('board' , board)
         let colScore = 0;
         let rowScore = 0;
         let maxColScore = 0;
@@ -102,6 +122,10 @@ function TicTacToe() {
             colScore > maxColScore ? maxColScore = colScore : null;
             colScore < minColScore ? minColScore = colScore : null;
         }
-        return [maxRowScore,minRowScore,maxColScore,minColScore] 
+        //Check Diagnols
+        let diagonal1 = board[0][0] + board [1][1] + board[2][2];
+        let diagonal2 = board[2][0] + board [1][1] + board[0][2];
+
+        return [maxRowScore,minRowScore,maxColScore,minColScore, Math.max(diagonal1,diagonal2), Math.min(diagonal1,diagonal2)] 
     } //checkScore
 } //TicTacToe
