@@ -1,3 +1,4 @@
+const TTT = new TicTacToe()
 function setup() {
     createCanvas(width,width);
   }
@@ -9,12 +10,10 @@ function setup() {
       line((width/3)*2,0,(width/3*2),width);
       line(0,(width/3)*2,width,(width/3*2));
       if(mouseIsPressed){
-          fill(0)
-
-      }else(
-          fill(255)
-      )
-      ellipse(mouseX,mouseY,10)
+        TTT.addMove({x:mouseX,y:mouseY})
+      }
+    TTT.draw()
+    TTT.checkWinner()
 
   }
 
