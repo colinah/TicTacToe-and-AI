@@ -31,8 +31,8 @@ function TicTacToe() {
                 if( dist(this.boardLocations[i][j].x,this.boardLocations[i][j].y,location.x,location.y) < scl/2 && this.board[i][j] === 0 && this.playersTurn){
                     this.board[i][j] = -1
                     this.slots -= 1;
-                    this.playersTurn = false
-                    this.AiMove();
+                    this.playersTurn = false;
+                    setTimeout(this.AiMove, 500);
                 }
             }
         }
